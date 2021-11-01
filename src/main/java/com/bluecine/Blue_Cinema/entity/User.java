@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,9 +15,10 @@ import javax.persistence.Table;
 public class User implements Serializable {
      
     private String Document_type;
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)    
     private long Document_number;
 
     @Column(length = 50)
@@ -28,6 +29,7 @@ public class User implements Serializable {
     @Column(name="email", nullable = false, length = 40, unique = true)
     private String Email;
 
+    @Column(nullable = false)
     private String Password;
 
     public String getDocument_type() {
