@@ -14,70 +14,82 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User implements Serializable {
      
-    private String Document_type;
+    private String document_type;
     
     @Id
     @Column(nullable = false, unique = true)
     //@GeneratedValue(strategy = GenerationType.IDENTITY)    
-    private long Document_number;
+    private long document_number;
 
     @Column(length = 50)
-    private String Names;
+    private String names;
 
-    private String Surnames;
+    private String surnames;
 
-    @Column(name="email", nullable = false, length = 40, unique = true)
-    private String Email;
+    @Column(nullable = false, length = 40, unique = true)
+    private String email;
 
     @Column(nullable = false)
-    private String Password;
+    private String password;
+
+    @Column(nullable = false)
+    private String user_type = "buyer";
 
     public String getDocument_type() {
-        return Document_type;
+        return document_type;
     }
 
     public void setDocument_type(String document_type) {
-        Document_type = document_type;
+        this.document_type = document_type;
     }
 
     public long getDocument_number() {
-        return Document_number;
+        return document_number;
     }
 
     public void setDocument_number(long document_number) {
-        Document_number = document_number;
+        this.document_number = document_number;
     }
 
     public String getNames() {
-        return Names;
+        return names;
     }
 
     public void setNames(String names) {
-        Names = names;
+        this.names = names;
     }
 
     public String getSurnames() {
-        return Surnames;
+        return surnames;
     }
 
     public void setSurnames(String surnames) {
-        Surnames = surnames;
+        this.surnames = surnames;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
+    }
+
+   
 }
