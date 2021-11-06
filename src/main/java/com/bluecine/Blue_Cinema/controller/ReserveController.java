@@ -4,8 +4,6 @@ import java.util.Optional;
 
 import com.bluecine.Blue_Cinema.entity.Reserve;
 import com.bluecine.Blue_Cinema.service.ReserveService;
-import com.bluecine.Blue_Cinema.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
