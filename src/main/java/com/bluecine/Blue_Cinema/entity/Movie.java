@@ -1,12 +1,18 @@
 package com.bluecine.Blue_Cinema.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +21,7 @@ public class Movie implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long id_movie;
 
     @Column(nullable = false, unique = true)    
     private String title;
@@ -27,6 +33,8 @@ public class Movie implements Serializable {
 
     private String format;
 
+    private String duration;
+
     private String image;
 
     private String schedule;
@@ -35,14 +43,19 @@ public class Movie implements Serializable {
 
     private long ticket_value;
 
+    @OneToMany(mappedBy = "movies", fetch = FetchType.LAZY,
+    cascade = CascadeType.ALL)
+    private Set<Reserve> reserves;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_room", nullable = false)
+    private Room rooms;
+
+
     public long getId() {
-        return id;
+        return id_movie;
     }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
+    
     public String getTitle() {
         return title;
     }
@@ -105,6 +118,14 @@ public class Movie implements Serializable {
 
     public void setTicket_value(long ticket_value) {
         this.ticket_value = ticket_value;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     
