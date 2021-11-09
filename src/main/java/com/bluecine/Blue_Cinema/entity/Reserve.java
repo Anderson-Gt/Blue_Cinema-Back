@@ -29,11 +29,9 @@ public class Reserve implements Serializable {
     @Column
     private long totalPrice;
 
-    
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "documentNumber", nullable = false)    
-    private User users; 
+    private User users;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idMovie", nullable = false)
@@ -41,7 +39,7 @@ public class Reserve implements Serializable {
 
     @OneToMany(mappedBy = "reserves", fetch = FetchType.LAZY,
     cascade = CascadeType.ALL)
-    private Set<Chair> chairs;
+    private Set<Chair> chairs;    
 
 
     public Reserve() {
@@ -69,6 +67,10 @@ public class Reserve implements Serializable {
 
     public void setUsers(User users) {
         this.users = users;
+    }
+
+    public void setMovies(Movie movies){
+        this.movies = movies;
     }
 
 

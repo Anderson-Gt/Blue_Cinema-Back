@@ -1,6 +1,7 @@
 package com.bluecine.Blue_Cinema.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -45,7 +46,7 @@ public class Movie implements Serializable {
 
     @OneToMany(mappedBy = "movies", fetch = FetchType.LAZY,
     cascade = CascadeType.ALL)
-    private Set<Reserve> reserves;
+    private Set<Reserve> reserves = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idRoom", nullable = false)
@@ -132,6 +133,13 @@ public class Movie implements Serializable {
         this.rooms = rooms;
     }
 
+    public Set<Reserve> getReserves() {
+        return reserves;
+    }
+
+    public void setReserves(Set<Reserve> reserves) {
+        this.reserves = reserves;
+    }
 
 
     

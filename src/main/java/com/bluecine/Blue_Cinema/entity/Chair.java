@@ -23,6 +23,8 @@ public class Chair implements Serializable{
 
     private int line;
 
+    private boolean isReserved;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idRoom", nullable = false)
     private Room rooms;
@@ -49,6 +51,14 @@ public class Chair implements Serializable{
 
     public void setLine(int line) {
         this.line = line;
+    }
+
+    public boolean isReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(boolean isReserved) {
+        this.isReserved = isReserved;
     }
     
     
