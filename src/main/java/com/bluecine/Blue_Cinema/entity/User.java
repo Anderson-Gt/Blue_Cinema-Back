@@ -1,6 +1,7 @@
 package com.bluecine.Blue_Cinema.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,12 +20,11 @@ import javax.persistence.Table;
 public class User implements Serializable {
      
     @Column
-    private String document_type;
+    private String documentType;
     
     @Id
-    @Column(nullable = false, unique = true)
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)    
-    private long document_number;
+    @Column(nullable = false, unique = true)   
+    private long documentNumber;
 
     @Column(length = 50)
     private String names;
@@ -38,28 +38,26 @@ public class User implements Serializable {
     private String password;
 
     @Column(nullable = false)
-    private String user_type = "buyer";
+    private String userType = "buyer";
 
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY,
     cascade = CascadeType.ALL)
-    private Set<Reserve> reserves;
+    private Set<Reserve> reserves = new HashSet<>();
 
-
-
-    public String getDocument_type() {
-        return document_type;
+    public String getDocumentType() {
+        return documentType;
     }
 
-    public void setDocument_type(String document_type) {
-        this.document_type = document_type;
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
     }
 
-    public long getDocument_number() {
-        return document_number;
+    public long getDocumentNumber() {
+        return documentNumber;
     }
 
-    public void setDocument_number(long document_number) {
-        this.document_number = document_number;
+    public void setDocumentNumber(long documentNumber) {
+        this.documentNumber = documentNumber;
     }
 
     public String getNames() {
@@ -94,12 +92,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getUser_type() {
-        return user_type;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setUser_type(String user_type) {
-        this.user_type = user_type;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public Set<Reserve> getReserves() {

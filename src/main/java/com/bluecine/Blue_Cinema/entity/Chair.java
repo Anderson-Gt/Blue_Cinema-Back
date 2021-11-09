@@ -17,22 +17,22 @@ public class Chair implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_chair;
+    private long idChair;
 
     private int row;
 
     private int line;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_room", nullable = false)
+    @JoinColumn(name = "idRoom", nullable = false)
     private Room rooms;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_reserve", nullable = false)
+    @JoinColumn(name = "idReserve", nullable = false)
     private Reserve reserves;
 
-    public long getId_chair() {
-        return id_chair;
+    public long getIdChair() {
+        return idChair;
     }
 
     public int getRow() {

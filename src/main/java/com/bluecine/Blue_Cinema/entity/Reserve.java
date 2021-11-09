@@ -21,20 +21,22 @@ public class Reserve implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private long id_reserve;
+    private long idReserve;
 
     @Column
     private int amount;
 
     @Column
-    private long total_price;
+    private long totalPrice;
+
+    
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "document_number", nullable = false)
-    private User users;
+    @JoinColumn(name = "documentNumber", nullable = false)    
+    private User users; 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_movie", nullable = false)
+    @JoinColumn(name = "idMovie", nullable = false)
     private Movie movies;
 
     @OneToMany(mappedBy = "reserves", fetch = FetchType.LAZY,
@@ -42,8 +44,11 @@ public class Reserve implements Serializable {
     private Set<Chair> chairs;
 
 
-    public long getId() {
-        return id_reserve;
+    public Reserve() {
+    }
+
+    public long getIdReserve() {
+        return idReserve;
     }
 
     public int getAmount() {
@@ -54,12 +59,16 @@ public class Reserve implements Serializable {
         this.amount = amount;
     }
 
-    public long getTotal_price() {
-        return total_price;
+    public long getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotal_price(long total_price) {
-        this.total_price = total_price;
+    public void setTotalPrice(long totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
     }
 
 

@@ -43,6 +43,15 @@ public class MovieController {
         return ResponseEntity.ok(oMovie);
     }
 
+    @GetMapping("/billboard")
+    public ResponseEntity<?> readByBillboard(){
+        List<Movie>oMovie = movieService.findByBillboard(true);
+        if(oMovie==null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(oMovie);
+    }
+
     //update a movie
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@RequestBody Movie movieDetails, @PathVariable(value = "id") Long movieId){
@@ -58,7 +67,7 @@ public class MovieController {
         movie.get().setImage(movieDetails.getImage());
         movie.get().setSchedule(movieDetails.getSchedule());
         movie.get().setBillboard(movieDetails.isBillboard());
-        movie.get().setTicket_value(movieDetails.getTicket_value());
+        movie.get().setTicketValue(movieDetails.getTicketValue());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(movieService.save(movie.get()));
     }
@@ -80,15 +89,5 @@ public class MovieController {
         .collect(Collectors.toList());
         return movies;
     }
-
-    //read all movies on billboard
-    /*@GetMapping List<Movie>ReadOnBillboard{
-        List<Movie>movies=StreamSupport
-        .stream(movieService, false)
-        .collect(Collectors.toList());
-
-    }
-    */
-
     
 }

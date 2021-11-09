@@ -53,8 +53,8 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
-        user.get().setDocument_type(userDetails.getDocument_type());
-        user.get().setDocument_number(userDetails.getDocument_number());
+        user.get().setDocumentType(userDetails.getDocumentType());
+        user.get().setDocumentNumber(userDetails.getDocumentNumber());
         user.get().setNames(userDetails.getNames());
         user.get().setSurnames(userDetails.getSurnames());
         user.get().setPassword(userDetails.getPassword());

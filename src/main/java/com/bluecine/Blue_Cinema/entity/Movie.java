@@ -21,7 +21,7 @@ public class Movie implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_movie;
+    private long idMovie;
 
     @Column(nullable = false, unique = true)    
     private String title;
@@ -41,19 +41,19 @@ public class Movie implements Serializable {
 
     private boolean billboard=true;
 
-    private long ticket_value;
+    private long ticketValue;
 
     @OneToMany(mappedBy = "movies", fetch = FetchType.LAZY,
     cascade = CascadeType.ALL)
     private Set<Reserve> reserves;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_room", nullable = false)
+    @JoinColumn(name = "idRoom", nullable = false)
     private Room rooms;
 
 
-    public long getId() {
-        return id_movie;
+    public long getIdMovie() {
+        return idMovie;
     }
     
     public String getTitle() {
@@ -112,12 +112,12 @@ public class Movie implements Serializable {
         this.billboard = billboard;
     }
 
-    public long getTicket_value() {
-        return ticket_value;
+    public long getTicketValue() {
+        return ticketValue;
     }
 
-    public void setTicket_value(long ticket_value) {
-        this.ticket_value = ticket_value;
+    public void setTicketValue(long ticketValue) {
+        this.ticketValue = ticketValue;
     }
 
     public String getDuration() {
@@ -127,6 +127,12 @@ public class Movie implements Serializable {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+    public void setRooms(Room rooms) {
+        this.rooms = rooms;
+    }
+
+
 
     
     

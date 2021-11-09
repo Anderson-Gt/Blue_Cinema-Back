@@ -10,8 +10,6 @@ public interface ReserveService {
 
     public Optional<Reserve>findById(Long Id);
 
-    //public Optional<Movie>findByBillboard(Boolean billboard);
-
     public Reserve save(Reserve reserve);
 
     public void deleteById(Long Id);

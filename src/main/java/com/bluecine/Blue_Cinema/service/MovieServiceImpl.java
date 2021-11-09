@@ -1,5 +1,6 @@
 package com.bluecine.Blue_Cinema.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.bluecine.Blue_Cinema.entity.Movie;
@@ -28,12 +29,6 @@ public class MovieServiceImpl implements MovieService{
         return movieRepository.findById(id);
     }
 
-    /*@Override
-    @Transactional(readOnly = true)
-    public Optional<Movie> findByBillboard(Boolean billboard) {
-        return null;
-    }*/
-
     @Override
     @Transactional
     public Movie save(Movie movie) {
@@ -44,6 +39,14 @@ public class MovieServiceImpl implements MovieService{
     @Transactional
     public void deleteById(Long id) {
         movieRepository.deleteById(id);        
+    }
+
+
+    @Override
+    @Transactional
+    public List<Movie> findByBillboard(Boolean billboard) {
+       return movieRepository.findByBillboard(billboard);
+        
     }
 
     

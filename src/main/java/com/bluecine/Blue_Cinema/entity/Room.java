@@ -18,11 +18,11 @@ public class Room implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_room;
+    private long idRoom;
     private String name;
     private int amount;
 
-   @OneToMany(mappedBy = "rooms", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "rooms", fetch = FetchType.LAZY,
     cascade = CascadeType.ALL)
     private Set<Movie> movies;
 
@@ -30,8 +30,8 @@ public class Room implements Serializable{
     cascade = CascadeType.ALL)
     private Set<Chair> chairs;
 
-    public long getId() {
-        return id_room;
+    public long getIdRoom() {
+        return idRoom;
     }
 
     public String getName() {
