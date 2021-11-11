@@ -1,10 +1,11 @@
-package com.bluecine.Blue_Cinema.service;
+package com.bluecine.Blue_Cinema.serviceImpl;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.bluecine.Blue_Cinema.entity.Movie;
 import com.bluecine.Blue_Cinema.repository.MovieRepository;
+import com.bluecine.Blue_Cinema.service.MovieService;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

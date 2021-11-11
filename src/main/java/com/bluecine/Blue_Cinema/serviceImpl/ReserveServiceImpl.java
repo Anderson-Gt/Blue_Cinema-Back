@@ -1,9 +1,10 @@
-package com.bluecine.Blue_Cinema.service;
+package com.bluecine.Blue_Cinema.serviceImpl;
 
 import java.util.Optional;
 
 import com.bluecine.Blue_Cinema.entity.Reserve;
 import com.bluecine.Blue_Cinema.repository.ReserveRepository;
+import com.bluecine.Blue_Cinema.service.ReserveService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

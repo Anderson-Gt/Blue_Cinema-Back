@@ -1,9 +1,10 @@
-package com.bluecine.Blue_Cinema.service;
+package com.bluecine.Blue_Cinema.serviceImpl;
 
 import java.util.Optional;
 
 import com.bluecine.Blue_Cinema.entity.User;
 import com.bluecine.Blue_Cinema.repository.UserRepository;
+import com.bluecine.Blue_Cinema.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;

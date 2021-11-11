@@ -1,9 +1,10 @@
-package com.bluecine.Blue_Cinema.service;
+package com.bluecine.Blue_Cinema.serviceImpl;
 
 import java.util.Optional;
 
 import com.bluecine.Blue_Cinema.entity.Chair;
 import com.bluecine.Blue_Cinema.repository.ChairRepository;
+import com.bluecine.Blue_Cinema.service.ChairService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
