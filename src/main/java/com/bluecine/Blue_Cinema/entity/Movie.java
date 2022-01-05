@@ -11,8 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+/*import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;*/
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -42,15 +42,15 @@ public class Movie implements Serializable {
 
     private boolean billboard=true;
 
-    private long ticketValue;
+    private float ticketValue;
 
     @OneToMany(mappedBy = "movies", fetch = FetchType.LAZY,
     cascade = CascadeType.ALL)
     private Set<Reserve> reserves = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idRoom", nullable = false)
-    private Room rooms;
+    private Room rooms;*/
 
 
     public long getIdMovie() {
@@ -113,11 +113,11 @@ public class Movie implements Serializable {
         this.billboard = billboard;
     }
 
-    public long getTicketValue() {
+    public float getTicketValue() {
         return ticketValue;
     }
 
-    public void setTicketValue(long ticketValue) {
+    public void setTicketValue(float ticketValue) {
         this.ticketValue = ticketValue;
     }
 
@@ -129,13 +129,17 @@ public class Movie implements Serializable {
         this.duration = duration;
     }
 
-    public void setRooms(Room rooms) {
-        this.rooms = rooms;
+   /* public long getRooms(){
+        return rooms.getIdRoom();
     }
 
-    public Set<Reserve> getReserves() {
+    public void setRooms(Room rooms) {
+        this.rooms = rooms;
+    }*/
+
+    /*public Set<Reserve> getReserves() {
         return reserves;
-    }
+    }*/
 
     public void setReserves(Set<Reserve> reserves) {
         this.reserves = reserves;

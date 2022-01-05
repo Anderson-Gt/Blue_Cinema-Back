@@ -1,7 +1,7 @@
 
-//CONTROLADOR POR PREGUNTAR SI ES NECESARIO
+/*//CONTROLADOR POR PREGUNTAR SI ES NECESARIO
 
-/*package com.bluecine.Blue_Cinema.controller;
+package com.bluecine.Blue_Cinema.controller;
 
 import java.util.Optional;
 

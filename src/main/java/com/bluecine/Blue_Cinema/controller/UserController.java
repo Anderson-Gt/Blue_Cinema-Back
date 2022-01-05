@@ -11,6 +11,7 @@ import com.bluecine.Blue_Cinema.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -30,7 +32,12 @@ public class UserController {
     //Create a new user
     @PostMapping
     public ResponseEntity<?> create(@RequestBody User user){
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
+        Optional<User> oUser = userService.findById(user.getDocumentNumber());
+        if(!oUser.isPresent()){
+            return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
+        }
+        return ResponseEntity.badRequest().build();
+        
     }
 
     //Read an user
@@ -40,6 +47,16 @@ public class UserController {
         Optional<User> oUser = userService.findById(userId);
         
         if(!oUser.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(oUser);
+    }
+
+    //Read an user by email
+    @GetMapping("/findBy/{email}")
+    public ResponseEntity<?> readByEmail(@PathVariable(value = "email") String email){
+        User oUser = userService.findByEmail(email);
+        if(oUser==null){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(oUser);

@@ -12,6 +12,8 @@ public interface UserService {
 
     public Page<User>findAll(Pageable pageable);
 
+    public User findByEmail(String email);
+
     public Optional<User>findById(Long id);
 
     public User save(User user);

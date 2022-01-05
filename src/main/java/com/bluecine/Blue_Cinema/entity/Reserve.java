@@ -11,9 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="reserves")
@@ -35,11 +38,13 @@ public class Reserve implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idMovie", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Movie movies;
 
-    @OneToMany(mappedBy = "reserves", fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL)
-    private Set<Chair> chairs;    
+    /*@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)*/
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="chairxreserve",joinColumns = @JoinColumn(name="idReserve"),inverseJoinColumns = @JoinColumn(name="idChair"))
+    private Set<Chair> chairs;  
 
 
     public Reserve() {
@@ -65,13 +70,34 @@ public class Reserve implements Serializable {
         this.totalPrice = totalPrice;
     }
 
+    /*public long getUsers() {
+        return users.getDocumentNumber();
+    }*/
+
     public void setUsers(User users) {
         this.users = users;
     }
 
-    public void setMovies(Movie movies){
+    public Movie getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Movie movies) {
         this.movies = movies;
     }
+
+    public Set<Chair> getChairs() {
+        return chairs;
+    }
+
+    public void setChairs(Set<Chair> chairs) {
+        this.chairs = chairs;
+    }
+
+    
+
+  
+   
 
 
    

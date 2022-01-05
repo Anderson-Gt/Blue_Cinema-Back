@@ -99,6 +99,7 @@ public class User implements Serializable {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+    
 
     public Set<Reserve> getReserves() {
         return reserves;
