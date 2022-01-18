@@ -15,6 +15,11 @@ public interface MovieService {
 
     public Movie save(Movie movie);
 
+    public boolean existById(Long Id);
+
+    public boolean existsByTitle(String title);
+
+    public Optional<Movie>getByTitle(String name);
+
     public void deleteById(Long Id);
-    
 }

@@ -23,11 +23,17 @@ public class MovieServiceImpl implements MovieService{
         return movieRepository.findAll();
     }
 
-    
     @Override
     @Transactional(readOnly = true)
     public Optional<Movie> findById(Long id) {
         return movieRepository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Movie> findByBillboard(Boolean billboard) {
+       return movieRepository.findByBillboard(billboard);
+        
     }
 
     @Override
@@ -38,17 +44,26 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     @Transactional
-    public void deleteById(Long id) {
-        movieRepository.deleteById(id);        
+    public boolean existById(Long Id) {
+        return movieRepository.existsById(Id);
     }
-
 
     @Override
     @Transactional
-    public List<Movie> findByBillboard(Boolean billboard) {
-       return movieRepository.findByBillboard(billboard);
-        
+    public boolean existsByTitle(String title) {
+        return movieRepository.existsByTitle(title);
     }
 
+    @Override
+    @Transactional
+    public Optional<Movie> getByTitle(String name){
+        return movieRepository.findByTitle(name);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        movieRepository.deleteById(id);        
+    }
     
 }

@@ -22,14 +22,8 @@ public class Chair implements Serializable{
     @ManyToMany(mappedBy = "chairs")
     private Set<Reserve> reserves;
 
-
     public long getIdChair() {
         return idChair;
     }
-    
-    /*public void setReserves(Reserve reserves) {
-        this.reserves = reserves;
-    }*/
-    
     
 }

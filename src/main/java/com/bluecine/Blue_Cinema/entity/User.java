@@ -11,8 +11,11 @@ import javax.persistence.FetchType;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 
 @Entity
@@ -31,18 +34,34 @@ public class User implements Serializable {
 
     private String surnames;
 
-    @Column(nullable = false, length = 40, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String userType = "buyer";
-
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY,
     cascade = CascadeType.ALL)
     private Set<Reserve> reserves = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "userxrole", joinColumns = @JoinColumn(name = "documentNumber"),
+    inverseJoinColumns = @JoinColumn(name = "idRole"))
+    private Set<Role> roles = new HashSet<>();
+
+    public User(){
+        
+    }
+
+    public User(String documentType, long documentNumber, String names, String surnames, String email,
+            String password) {
+        this.documentType = documentType;
+        this.documentNumber = documentNumber;
+        this.names = names;
+        this.surnames = surnames;
+        this.email = email;
+        this.password = password;
+    }
 
     public String getDocumentType() {
         return documentType;
@@ -92,21 +111,20 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-    
-
     public Set<Reserve> getReserves() {
         return reserves;
     }
 
     public void setReserves(Set<Reserve> reserves) {
         this.reserves = reserves;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
    

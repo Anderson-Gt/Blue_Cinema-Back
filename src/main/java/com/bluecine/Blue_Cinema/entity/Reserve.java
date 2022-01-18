@@ -44,7 +44,7 @@ public class Reserve implements Serializable {
     /*@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)*/
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="chairxreserve",joinColumns = @JoinColumn(name="idReserve"),inverseJoinColumns = @JoinColumn(name="idChair"))
-    private Set<Chair> chairs;  
+    private Set<Chair> chairs;
 
 
     public Reserve() {

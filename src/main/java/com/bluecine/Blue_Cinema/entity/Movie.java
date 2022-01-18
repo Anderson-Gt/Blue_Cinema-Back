@@ -11,10 +11,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-/*import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;*/
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "movies")
@@ -38,8 +39,6 @@ public class Movie implements Serializable {
 
     private String image;
 
-    private String schedule;
-
     private boolean billboard=true;
 
     private float ticketValue;
@@ -48,10 +47,22 @@ public class Movie implements Serializable {
     cascade = CascadeType.ALL)
     private Set<Reserve> reserves = new HashSet<>();
 
-    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "idRoom", nullable = false)
-    private Room rooms;*/
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="schedulexmovie",joinColumns = @JoinColumn(name="idMovie"),inverseJoinColumns = @JoinColumn(name="idSchedule"))
+    private Set<Schedule> schedules;
 
+
+    public Movie(String title, String gender, String synopsis, String format, String duration, String image,
+            boolean billboard, float ticketValue) {
+        this.title = title;
+        this.gender = gender;
+        this.synopsis = synopsis;
+        this.format = format;
+        this.duration = duration;
+        this.image = image;
+        this.billboard = billboard;
+        this.ticketValue = ticketValue;
+    }
 
     public long getIdMovie() {
         return idMovie;
@@ -95,14 +106,6 @@ public class Movie implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(String schedule) {
-        this.schedule = schedule;
     }
 
     public boolean isBillboard() {

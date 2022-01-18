@@ -53,9 +53,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
        return userRepository.findByEmail(email);
         
+    }
+
+    @Override
+    @Transactional
+    public boolean existsByEmail(String email){
+        return userRepository.existsByEmail(email);
+
+    }
+
+    @Override
+    @Transactional
+    public boolean existsByDocumentNumber(long documentNumber){
+        return userRepository.existsByDocumentNumber(documentNumber);
     }
     
 }
