@@ -1,6 +1,8 @@
 package com.bluecine.Blue_Cinema.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MovieDto implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -13,14 +15,15 @@ public class MovieDto implements Serializable {
     private String image;
     private boolean billboard;
     private float ticketValue;
+    private Set<Integer> schedules = new HashSet<>();
 
 
     
     public MovieDto() {
     }
-    
+
     public MovieDto(String title, String gender, String synopsis, String format, String duration, String image,
-            boolean billboard, float ticketValue) {
+            boolean billboard, float ticketValue, Set<Integer> schedules) {
         this.title = title;
         this.gender = gender;
         this.synopsis = synopsis;
@@ -29,7 +32,10 @@ public class MovieDto implements Serializable {
         this.image = image;
         this.billboard = billboard;
         this.ticketValue = ticketValue;
+        this.schedules = schedules;
     }
+
+
 
     public String getTitle() {
         return title;
@@ -79,8 +85,12 @@ public class MovieDto implements Serializable {
     public void setTicketValue(float ticketValue) {
         this.ticketValue = ticketValue;
     }
-    
 
+    public Set<Integer> getSchedules() {
+        return schedules;
+    }
 
-    
+    public void setSchedules(Set<Integer> schedules) {
+        this.schedules = schedules;
+    }
 }

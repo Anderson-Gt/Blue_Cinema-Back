@@ -16,14 +16,15 @@ public class Chair implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idChair;
+    private int idChair;
 
     /*@ManyToMany(fetch = FetchType.LAZY,mappedBy = "chairs")*/
     @ManyToMany(mappedBy = "chairs")
     private Set<Reserve> reserves;
 
-    public long getIdChair() {
+    public int getIdChair() {
         return idChair;
     }
+    
     
 }

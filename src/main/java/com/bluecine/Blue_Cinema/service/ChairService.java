@@ -8,10 +8,10 @@ public interface ChairService {
 
     public Iterable<Chair>findAll();
 
-    public Optional<Chair>findById(Long Id);
+    public Optional<Chair>findById(Integer Id);
 
     public Chair save(Chair chair);
 
-    public void deleteById(Long Id);
+    public void deleteById(Integer Id);
     
 }

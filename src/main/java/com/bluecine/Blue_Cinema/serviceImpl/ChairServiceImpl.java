@@ -26,8 +26,8 @@ public class ChairServiceImpl implements ChairService{
     
     @Override
     @Transactional(readOnly = true)
-    public Optional<Chair> findById(Long id) {
-        return chairRepository.findById(id);
+    public Optional<Chair> findById(Integer Id) {
+        return chairRepository.findById(Id);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ChairServiceImpl implements ChairService{
 
     @Override
     @Transactional
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         chairRepository.deleteById(id);        
     }
     

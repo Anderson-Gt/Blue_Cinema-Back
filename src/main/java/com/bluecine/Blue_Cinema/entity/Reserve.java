@@ -27,6 +27,9 @@ public class Reserve implements Serializable {
     private long idReserve;
 
     @Column
+    private int idSchedule;
+
+    @Column
     private int amount;
 
     @Column
@@ -42,13 +45,30 @@ public class Reserve implements Serializable {
     private Movie movies;
 
     /*@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)*/
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name="chairxreserve",joinColumns = @JoinColumn(name="idReserve"),inverseJoinColumns = @JoinColumn(name="idChair"))
     private Set<Chair> chairs;
 
 
     public Reserve() {
     }
+
+    
+
+    public Reserve(int idSchedule, User users, Movie movies, Set<Chair> chairs) {
+        this.idSchedule = idSchedule;
+        this.users = users;
+        this.movies = movies;
+        this.chairs = chairs;
+        this.amount = chairs.size();
+        this.totalPrice = (long)(chairs.size()*movies.getTicketValue());
+    }
+
+    public void updateReserve(Set<Chair> chairs){
+        this.amount=chairs.size();
+        this.totalPrice = (long)(chairs.size()*movies.getTicketValue());
+    }
+
 
     public long getIdReserve() {
         return idReserve;
@@ -70,9 +90,9 @@ public class Reserve implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    /*public long getUsers() {
+    public long getUsers() {
         return users.getDocumentNumber();
-    }*/
+    }
 
     public void setUsers(User users) {
         this.users = users;
@@ -94,13 +114,7 @@ public class Reserve implements Serializable {
         this.chairs = chairs;
     }
 
-    
-
-  
-   
-
-
-   
-
-    
+    public int getIdSchedule() {
+        return idSchedule;
+    }    
 }

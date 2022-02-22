@@ -1,10 +1,12 @@
 package com.bluecine.Blue_Cinema.controller;
 
 import java.util.List;
+
 import com.bluecine.Blue_Cinema.dto.Message;
 import com.bluecine.Blue_Cinema.dto.MovieDto;
 import com.bluecine.Blue_Cinema.entity.Movie;
 import com.bluecine.Blue_Cinema.service.MovieService;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,9 +43,10 @@ public class MovieController {
         if(movieService.existsByTitle(movieDto.getTitle()))
         return new ResponseEntity(new Message("La pelicula ya se encuentra registrada por este titulo"), HttpStatus.BAD_REQUEST);
 
-        Movie movie = new Movie(movieDto.getTitle(),movieDto.getGender(),movieDto.getSynopsis(),movieDto.getFormat(),movieDto.getDuration(),movieDto.getImage(),movieDto.isBillboard(),movieDto.getTicketValue());
-        movieService.save(movie);
-        return new ResponseEntity(new Message("Pelicula creada exitosamente"),HttpStatus.OK);
+        String create = movieService.createMovie(movieDto);
+
+        return new ResponseEntity(new Message(create),HttpStatus.OK);
+
     }
     //update a movie
     @PreAuthorize("hasRole('ADMIN')")
@@ -58,16 +61,9 @@ public class MovieController {
         if(movieDto.getTicketValue()<0)
         return new ResponseEntity(new Message("El valor de la boleta no puede ser un valor negativo"), HttpStatus.BAD_REQUEST);
 
-        Movie movie = movieService.findById(movieId).get();
-        movie.setTitle(movieDto.getTitle());
-        movie.setGender(movieDto.getGender());
-        movie.setSynopsis(movieDto.getSynopsis());
-        movie.setFormat(movieDto.getFormat());
-        movie.setImage(movieDto.getImage());
-        movie.setBillboard(movieDto.isBillboard());
-        movie.setTicketValue(movieDto.getTicketValue());
-        movieService.save(movie);
-        return new ResponseEntity(new Message("Pelicula actualizada"),HttpStatus.OK);
+        String update = movieService.updateMovie(movieId, movieDto);
+
+        return new ResponseEntity(new Message(update),HttpStatus.OK);
     }
     //update a movie billboard
 
@@ -76,7 +72,6 @@ public class MovieController {
      public ResponseEntity<Iterable<Movie>> readAll(){
         Iterable<Movie> movies = movieService.findAll();
         return new ResponseEntity(movies, HttpStatus.OK);
-
      }
 
     //read all movies on billboard
@@ -101,9 +96,10 @@ public class MovieController {
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?>delete(@PathVariable(value = "id") Long movieId){
-       if(!movieService.existById(movieId))
-       return new ResponseEntity(new Message("no existe por ID"),HttpStatus.NOT_FOUND);
-       movieService.deleteById(movieId);
-       return new ResponseEntity(new Message("pelicula eliminada"), HttpStatus.OK);
+
+        if(!movieService.existById(movieId))
+        return new ResponseEntity(new Message("no existe por ID"),HttpStatus.NOT_FOUND);
+        movieService.deleteById(movieId);
+        return new ResponseEntity(new Message("pelicula eliminada"), HttpStatus.OK);
     }
 }

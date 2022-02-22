@@ -17,6 +17,15 @@ public class Schedule implements Serializable{
 
     @Column(nullable = false, unique = true)  
     private String time;
+    
+    
+
+    public Schedule() {
+    }
+
+    public Schedule(String time) {
+        this.time = time;
+    }
 
     public int getIdSchedule() {
         return idSchedule;

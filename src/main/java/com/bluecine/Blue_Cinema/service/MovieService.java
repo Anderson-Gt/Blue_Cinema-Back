@@ -3,7 +3,9 @@ package com.bluecine.Blue_Cinema.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.bluecine.Blue_Cinema.dto.MovieDto;
 import com.bluecine.Blue_Cinema.entity.Movie;
+
 
 public interface MovieService {
 
@@ -22,4 +24,9 @@ public interface MovieService {
     public Optional<Movie>getByTitle(String name);
 
     public void deleteById(Long Id);
+
+    public String createMovie(MovieDto movieDto);
+
+    public String updateMovie(Long movieId, MovieDto movie);
+
 }

@@ -51,6 +51,11 @@ public class Movie implements Serializable {
     @JoinTable(name="schedulexmovie",joinColumns = @JoinColumn(name="idMovie"),inverseJoinColumns = @JoinColumn(name="idSchedule"))
     private Set<Schedule> schedules;
 
+    
+
+
+    public Movie() {
+    }
 
     public Movie(String title, String gender, String synopsis, String format, String duration, String image,
             boolean billboard, float ticketValue) {
@@ -146,6 +151,14 @@ public class Movie implements Serializable {
 
     public void setReserves(Set<Reserve> reserves) {
         this.reserves = reserves;
+    }
+
+    public Set<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(Set<Schedule> schedules) {
+        this.schedules = schedules;
     }
 
 
