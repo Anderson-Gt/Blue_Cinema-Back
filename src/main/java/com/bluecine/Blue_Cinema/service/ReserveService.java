@@ -32,5 +32,7 @@ public interface ReserveService {
     public List<Reserve> findByIdScheduleAndMovies(Integer idSchedule, Movie movie);
 
     public List<Reserve>findByUsers(User user);
+
+    public String buildEmail(String name,String movieLink, String movieTitle, Integer idReserve, String genre, String hour, double price, String chairs);
     
 }

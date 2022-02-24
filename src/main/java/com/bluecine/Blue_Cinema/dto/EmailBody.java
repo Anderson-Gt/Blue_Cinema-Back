@@ -6,6 +6,9 @@ public class EmailBody {
 	private String content;
 	private String subject;
 	
+	public EmailBody(String subject) {
+		this.subject = subject;
+	}
 	public String getEmail() {
 		return email;
 	}
