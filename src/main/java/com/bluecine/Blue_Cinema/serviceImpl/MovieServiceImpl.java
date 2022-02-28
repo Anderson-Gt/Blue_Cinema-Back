@@ -27,8 +27,8 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     @Transactional(readOnly = true)
-    public Iterable<Movie> findAll() {        
-        return movieRepository.findAll();
+    public Iterable<Movie> findAllByRegistered(Boolean registered) {        
+        return movieRepository.findAllByRegistered(registered);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     @Transactional
-    public List<Movie> findByBillboard(Boolean billboard) {
-       return movieRepository.findByBillboard(billboard);
+    public List<Movie> findByBillboardAndRegistered(Boolean billboard, Boolean registered) {
+       return movieRepository.findByBillboardAndRegistered(billboard, registered);
         
     }
 
@@ -71,7 +71,9 @@ public class MovieServiceImpl implements MovieService{
     @Override
     @Transactional
     public void deleteById(Long id) {
-        movieRepository.deleteById(id);        
+        Movie movie = findById(id).get();
+        movie.setRegistered(false);
+        save(movie);
     }
 
     @Override
@@ -97,10 +99,20 @@ public class MovieServiceImpl implements MovieService{
         movie.setTitle(movieDto.getTitle());
         movie.setGender(movieDto.getGender());
         movie.setSynopsis(movieDto.getSynopsis());
+        movie.setDuration(movieDto.getDuration());
         movie.setFormat(movieDto.getFormat());
         movie.setImage(movieDto.getImage());
         movie.setBillboard(movieDto.isBillboard());
         movie.setTicketValue(movieDto.getTicketValue());
+       
+        Set<Schedule> schedule = new HashSet<>();
+        movie.setSchedules(schedule);
+        Set<Schedule> schedules = new HashSet<>();
+        for(int schedulemovie:movieDto.getSchedules()){
+            schedules.add(scheduleService.findById(schedulemovie).get());
+            movie.setSchedules(schedules);
+            
+        }
         save(movie);
 
         return "Pelicula actualizada";

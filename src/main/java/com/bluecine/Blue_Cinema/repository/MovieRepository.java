@@ -11,9 +11,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie,Long>{
 
-    List<Movie> findByBillboard(Boolean billboard);
+    List<Movie> findByBillboardAndRegistered(Boolean billboard, Boolean registered);
     Optional<Movie> findByTitle(String title);
     boolean existsByTitle(String title);
+    public Iterable<Movie>findAllByRegistered(Boolean registered);
 
     
 }

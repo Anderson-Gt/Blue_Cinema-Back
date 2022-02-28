@@ -25,7 +25,7 @@ public class Movie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idMovie;
 
-    @Column(nullable = false, unique = true)    
+    @Column(nullable = false)    
     private String title;
 
     @Column(nullable = false)
@@ -40,6 +40,8 @@ public class Movie implements Serializable {
     private String image;
 
     private boolean billboard=true;
+
+    private boolean registered=true;
 
     private float ticketValue;
 
@@ -137,18 +139,6 @@ public class Movie implements Serializable {
         this.duration = duration;
     }
 
-   /* public long getRooms(){
-        return rooms.getIdRoom();
-    }
-
-    public void setRooms(Room rooms) {
-        this.rooms = rooms;
-    }*/
-
-    /*public Set<Reserve> getReserves() {
-        return reserves;
-    }*/
-
     public void setReserves(Set<Reserve> reserves) {
         this.reserves = reserves;
     }
@@ -159,6 +149,14 @@ public class Movie implements Serializable {
 
     public void setSchedules(Set<Schedule> schedules) {
         this.schedules = schedules;
+    }
+
+    public boolean isRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
     }
 
 

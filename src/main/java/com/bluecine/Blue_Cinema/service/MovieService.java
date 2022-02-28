@@ -9,11 +9,11 @@ import com.bluecine.Blue_Cinema.entity.Movie;
 
 public interface MovieService {
 
-    public Iterable<Movie>findAll();
+    public Iterable<Movie>findAllByRegistered(Boolean registered);
 
     public Optional<Movie>findById(Long Id);
 
-    public List<Movie>findByBillboard(Boolean billboard);
+    public List<Movie>findByBillboardAndRegistered(Boolean billboard, Boolean registered);
 
     public Movie save(Movie movie);
 

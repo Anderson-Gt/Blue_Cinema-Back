@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,15 +32,14 @@ public class MovieController {
     private MovieService movieService;
 
     //create new movie
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody MovieDto movieDto){
         if(StringUtils.isBlank(movieDto.getTitle()))
         return new ResponseEntity(new Message("El nombre de la pelicula es obligatorio"), HttpStatus.BAD_REQUEST);
         if(movieDto.getTicketValue()<0)
         return new ResponseEntity(new Message("El valor de la boleta no puede ser un valor negativo"), HttpStatus.BAD_REQUEST);
-        if(movieService.existsByTitle(movieDto.getTitle()))
-        return new ResponseEntity(new Message("La pelicula ya se encuentra registrada por este titulo"), HttpStatus.BAD_REQUEST);
+        
 
         String create = movieService.createMovie(movieDto);
 
@@ -54,8 +52,6 @@ public class MovieController {
     public ResponseEntity<?> update(@PathVariable(value = "id") Long movieId,@RequestBody MovieDto movieDto){
         if(!movieService.existById(movieId))
         return new ResponseEntity(new Message("no se encuentra pelicula por ID"), HttpStatus.NOT_FOUND);
-        if(movieService.existsByTitle(movieDto.getTitle()) && movieService.getByTitle(movieDto.getTitle()).get().getIdMovie() != movieId)
-        return new ResponseEntity(new Message("ya existe una pelicula con ese nombre"),HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(movieDto.getTitle()))
         return new ResponseEntity(new Message("El nombre de la pelicula es obligatorio"), HttpStatus.BAD_REQUEST);
         if(movieDto.getTicketValue()<0)
@@ -65,19 +61,29 @@ public class MovieController {
 
         return new ResponseEntity(new Message(update),HttpStatus.OK);
     }
+
+    //delete a movie setting "registered" to false
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<?>delete(@PathVariable(value = "id") Long movieId){
+        if(!movieService.existById(movieId))
+        return new ResponseEntity(new Message("no existe por ID"),HttpStatus.NOT_FOUND);
+        movieService.deleteById(movieId);
+        return new ResponseEntity(new Message("pelicula eliminada"), HttpStatus.OK);
+    }
     //update a movie billboard
 
      //read all movies
      @GetMapping("/all")
      public ResponseEntity<Iterable<Movie>> readAll(){
-        Iterable<Movie> movies = movieService.findAll();
+        Iterable<Movie> movies = movieService.findAllByRegistered(true);
         return new ResponseEntity(movies, HttpStatus.OK);
      }
 
     //read all movies on billboard
     @GetMapping("/billboard")
     public ResponseEntity<List<Movie>> readByBillboard(){
-        List<Movie> movies = movieService.findByBillboard(true);
+        List<Movie> movies = movieService.findByBillboardAndRegistered(true,true);
         if(movies==null){
             return new ResponseEntity(new Message("No hay peliculas en cartelera"), HttpStatus.NOT_FOUND);
         }
@@ -92,14 +98,4 @@ public class MovieController {
         return new ResponseEntity(movie, HttpStatus.OK);
     }
 
-    //delete a movie
-    @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?>delete(@PathVariable(value = "id") Long movieId){
-
-        if(!movieService.existById(movieId))
-        return new ResponseEntity(new Message("no existe por ID"),HttpStatus.NOT_FOUND);
-        movieService.deleteById(movieId);
-        return new ResponseEntity(new Message("pelicula eliminada"), HttpStatus.OK);
-    }
 }
